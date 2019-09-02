@@ -38,8 +38,31 @@
             { field: 'PNumber', title: '项目数量', sort: true },
             { field: 'CircuitNum', title: '线路回数', sort: true },
             { field: 'TableNum', title: '主变台数', sort: true },
-            { field: 'Length', title: '线路长度', sort: true },
-            { field: 'Volume', title: '变电容量', sort: true },
+            {
+                field: 'Length', title: '线路长度', sort: true,
+                templet: function (res) {
+                    var str = "";
+                    if (res.VolLevel == "当月规模占年度比例" || res.VolLevel == "1-当月规模占年度比例") {
+                        str = res.Volume + "%";
+                    } else {
+                        str = res.Volume;
+                    }
+
+                    return str;
+                }
+            },
+            {
+                field: 'Volume', title: '变电容量', sort: true,
+                templet: function (res) {
+                    var str = "";
+                    if (res.VolLevel == "当月规模占年度比例" || res.VolLevel == "1-当月规模占年度比例") {
+                        str = res.Volume + "%";
+                    } else {
+                        str = res.Volume;
+                    }
+                    return str;
+                }
+            },
             { field: 'AvgRate', title: '平均值', sort: true },
         ]],
         page: true,

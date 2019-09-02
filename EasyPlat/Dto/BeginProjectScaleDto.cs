@@ -60,6 +60,6 @@ namespace EasyPlat.Dto
         public double Length { get; set; }
         public decimal Volume { get; set; }
 
-        public decimal AvgRate { get; set; }
+        public double AvgRate { get; set; }
     }
 }

@@ -42,7 +42,7 @@ namespace EasyPlat.Controllers
             {
                 queryModel.Month = Convert.ToDateTime(Request["Month"]).ToString("yyyy-MM");
             }
-            var list = db.BeginProjectScaleInfos.Where(m => (!string.IsNullOrEmpty(queryModel.Month)) || (queryModel.Month != string.Empty && m.Month.Contains(queryModel.Month)));
+            var list = db.BeginProjectScaleInfos.Where(m => (string.IsNullOrEmpty(queryModel.Month)) || (queryModel.Month != string.Empty && m.Month.Contains(queryModel.Month)));
 
             if (list.Any())
             {
@@ -84,7 +84,7 @@ namespace EasyPlat.Controllers
                     }
                 }
 
-                foreach (var year in list.Select(m => m.Year).Distinct())
+                foreach (var year in list.Select(m => m.Year).Distinct().ToList())
                 {
                     // 当年数据
                     var currentYearData = groupData.Where(m => m.Year == year).ToList();
@@ -95,7 +95,7 @@ namespace EasyPlat.Controllers
                     var totalLength = currentYearData.Sum(m => m.Length);
                     var totalVolume = currentYearData.Sum(m => m.Volume);
 
-                    foreach (var month in list.Where(m => m.Year == year).Select(m => m.Month).Distinct())
+                    foreach (var month in list.Where(m => m.Year == year).Select(m => m.Month).Distinct().ToList())
                     {
                         // 1月至当月的数据
                         var currentMonthData = currentYearData.Where(m => Convert.ToInt32(m.Month) <= Convert.ToInt32(month)).ToList();
@@ -130,6 +130,7 @@ namespace EasyPlat.Controllers
 
                         tempData2.Length = Math.Round(currentLength / totalLength * 100, 2);
                         tempData2.Volume = Math.Round(currentVolume / totalVolume * 100, 2);
+                        tempData2.AvgRate = Math.Round((tempData2.Length + Convert.ToDouble(tempData2.Volume)) / 2, 2);
 
                         // 1-当月规模累计
                         var tempData3 = currentData.FirstOrDefault(m => m.VolLevel == "1-当月规模累计");
@@ -144,6 +145,7 @@ namespace EasyPlat.Controllers
 
                         tempData4.Length = Math.Round(totalMonthLength / totalLength * 100, 2);
                         tempData4.Volume = Math.Round(totalMonthVolume / totalVolume * 100, 2);
+                        tempData4.AvgRate = Math.Round((tempData4.Length + Convert.ToDouble(tempData4.Volume)) / 2, 2);
                     }
                 }
 
