@@ -1,0 +1,609 @@
+﻿@model EasyPlat.Models.ProjectPlanInfo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProjectPlanInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LineId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Province)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Province)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Catagory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Catagory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsBegin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsBegin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsWork)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsWork)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vlength)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vlength)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Volume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Volume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CycleNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CycleNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_fno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_fno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_bdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_bdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_yno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_yno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_sno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_sno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_isable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_isable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_hno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_hno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_hdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_hdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_pdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_pdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pre_sdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pre_sdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_zdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_zdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_kdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_kdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_sdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_sdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_fdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_fdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_ydt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_ydt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_wdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_wdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_bdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_bdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_jdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_jdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_gdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_gdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_xdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_xdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_ldt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_ldt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_pdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_pdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_cdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_cdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_hdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_hdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_ddt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_ddt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_rdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_rdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_bdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_bdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_sdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_sdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_xdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_xdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_ydt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_ydt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_hdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_hdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_cdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_cdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Build_tdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Build_tdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Finish_jdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Finish_jdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Finish_fdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Finish_fdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Finish_zdt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Finish_zdt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DynamicNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DynamicNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DemandNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DemandNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Progress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Progress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_high)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_high)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_assort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_assort)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_strong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_strong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_iron)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_iron)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_rail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_rail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_wind)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_wind)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_light)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_light)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_give)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_give)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_farmer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_farmer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Important_summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Important_summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Months)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Months)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkReady)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkReady)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkSet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkSet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkBid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkBid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkCheck)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCheck)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

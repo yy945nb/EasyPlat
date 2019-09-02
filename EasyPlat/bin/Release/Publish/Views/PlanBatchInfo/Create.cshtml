@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">计划批次</label>
+            <div class="layui-input-block">
+                <input name="PlanBatch" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">计划名称</label>
+            <div class="layui-input-block">
+                <input name="PlanName" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">所在城市</label>
+            <div class="layui-input-block">
+                <input name="CityPlace" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">市级属地</label>
+            <div class="layui-input-block">
+                <input name="CityPlace" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">招标模式</label>
+            <div class="layui-input-block">
+                <input name="BidMode" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">采购方式</label>
+            <div class="layui-input-block">
+                <input name="BuyWay" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">招标年度</label>
+            <div class="layui-input-block">
+                <input name="BidYear" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">招标紧急标识</label>
+            <div class="layui-input-block">
+                <input name="BidFlag" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">计划审查日期</label>
+            <div class="layui-input-block">
+                <input name="PlanCheckDt" class="layui-input" id="PlanCheckDt" type="text" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">计划审查日期</label>
+            <div class="layui-input-block">
+                <input name="PlanStartDt" class="layui-input" id="PlanStartDt" type="text" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">市计划开始时间</label>
+            <div class="layui-input-block">
+                <input name="CityStartDt" class="layui-input" id="PlanEndDt" type="text" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">计划截至日期</label>
+            <div class="layui-input-block">
+                <input name="PlanEndDt" class="layui-input" id="PlanEndDt" type="text" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">招标模式细化期</label>
+        <div class="layui-input-block">
+            <input name="Period" class="layui-input" id="Period" type="text" autocomplete="off">
+        </div>
+    </div>
+</form>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#PlanStartDt'
+        });
+        laydate.render({
+            elem: '#PlanEndDt'
+        });
+    });
+</script>
+

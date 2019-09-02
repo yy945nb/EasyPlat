@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">年份</label>
+            <div class="layui-input-block">
+                <input name="Year" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">月份</label>
+            <div class="layui-input-block">
+                <input name="Month" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">电压等级</label>
+            <div class="layui-input-block">
+                <input name="VolLevel" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">项目数量</label>
+            <div class="layui-input-block">
+                <input name="PNumber" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">线路回数</label>
+            <div class="layui-input-block">
+                <input name="CircuitNum" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">主变台数</label>
+            <div class="layui-input-block">
+                <input name="TableNum" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">线路长度</label>
+            <div class="layui-input-block">
+                <input name="Length" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">变电容量</label>
+            <div class="layui-input-block">
+                <input name="Volume" class="layui-input" type="text" autocomplete="off" lay-verify="title">
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        //日期
+        //laydate.render({
+        //    elem: '#PlanStartDt'
+        //});
+        //laydate.render({
+        //    elem: '#PlanEndDt'
+        //});
+    });
+</script>
+

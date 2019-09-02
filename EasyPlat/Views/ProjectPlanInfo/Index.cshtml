@@ -1,0 +1,812 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .layui-table-cell {
+        overflow: visible;
+    }
+
+    td .layui-form-select {
+        margin-top: -10px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .form-control {
+        width: 150px !important;
+    }
+</style>
+
+<blockquote class="layui-elem-quote quoteBox">
+    <div class="row">
+        <div class="col-md-3 form-inline">
+            <label class="layui-form-label">项目名称</label>
+            <input type="text" id="ProjectName" name="ProjectName" class="form-control" autocomplete="off" />
+        </div>
+        <div class="col-md-3 form-inline">
+            <label class="layui-form-label">电压等级</label>
+            <select id="CLevel" name="CLevel" class="form-control">
+                <option value="">请选择</option>
+                <option value="35">35</option>
+                <option value="110">110</option>
+                <option value="220">220</option>
+                <option value="500">500</option>
+            </select>
+        </div>
+        <div class="col-md-3 form-inline" style="width:300px">
+            <label class="layui-form-label" style="width:120px">开工时间</label>
+            <input type="text" class="form-control" id="Build_bdt" name="Build_bdt" autocomplete="off" />
+        </div>
+        <div class="col-md-3 form-inline" style="width:300px">
+            <label class="layui-form-label" style="width:120px">投产时间</label>
+            <input type="text" class="form-control" id="Build_tdt" name="Build_tdt" autocomplete="off" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-inline">
+            <label class="layui-form-label">项目建设类别</label>
+            <select class="form-control" id="Catagory" name="Catagory">
+                <option value="">请选择</option>
+                <option value="常规工程">常规工程</option>
+                <option value="整站改造">整站改造</option>
+                <option value="地下变电站">地下变电站</option>
+                <option value="隧道电缆">隧道电缆</option>
+                <option value="综合管廊">综合管廊</option>
+            </select>
+        </div>
+        <div class="col-md-3 form-inline">
+            <label class="layui-form-label">单项工程类型</label>
+            <select id="PType" class="form-control" name="PType">
+                <option value="">请选择</option>
+                <option value="变电站">变电站</option>
+                <option value="开关站">开关站</option>
+                <option value="间隔">间隔</option>
+                <option value="架空线">架空线</option>
+                <option value="架空线切改">架空线切改</option>
+                <option value="陆上电缆">陆上电缆</option>
+                <option value="陆上电缆切改">陆上电缆切改</option>
+                <option value="水下电缆">水下电缆</option>
+                <option value="水下电缆切改">水下电缆切改</option>
+                <option value="混合线路">混合线路</option>
+                <option value="串联补偿站">串联补偿站</option>
+                <option value="静止无功补偿工程">静止无功补偿工程</option>
+            </select>
+        </div>
+        <div class="col-md-3 form-inline" style="width:300px">
+            <label class="layui-form-label" style="width:120px">建设性质</label>
+            <select id="Nature" class="form-control" name="Nature">
+                <option value="">请选择</option>
+                <option value="新增">新增</option>
+                <option value="扩建">扩建</option>
+            </select>
+        </div>
+        <div class="col-md-3 form-inline" style="width:300px">
+            <label class="layui-form-label" style="width:120px">计划性质</label>
+            <select id="IsBeginOrWork" class="form-control" name="IsBeginOrWork">
+                <option value="">请选择</option>
+                <option value="开工">开工</option>
+                <option value="投产">投产</option>
+            </select>
+        </div>
+        <div class="col-md-2 form-inline" style="width:200px">
+            <button class="layui-btn search_btn" id="search" onclick="Reload()">搜索</button>
+            <button class="layui-btn clear_btn" id="clear" onclick="Clear()">清空</button>
+        </div>
+    </div>
+</blockquote>
+
+<script id="toolbar" type="text/html">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="Import">导入</button>
+        <button class="layui-btn layui-btn-sm" lay-event="BatchSave">批量保存</button>
+        <button class="layui-btn layui-btn-sm" lay-event="BatchRemove">批量删除</button>
+    </div>
+</script>
+
+<script id="bar" type="text/html">
+    <a class="layui-btn layui-btn-xs" lay-event="save">保存</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script id="switch_IsBegin" type="text/html">
+    <input type="checkbox" name="IsBegin" value={{d.IsBegin | "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.IsBegin == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_IsWork" type="text/html">
+    <input type="checkbox" name="IsWork" value={{d.IsWork| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.IsWork == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Pre_isable" type="text/html">
+    <input type="checkbox" name="Pre_isable" value={{d.Pre_isable| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Pre_isable == '是' ? 'checked' : '' }}>
+</script>
+
+
+<script id="switch_Important_high" type="text/html">
+    <input type="checkbox" name="Important_high" value={{d.Important_high | "空" }} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_high == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_assort" type="text/html">
+    <input type="checkbox" name="Important_assort" value={{d.Important_assort| "空" }} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_assort == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_strong" type="text/html">
+    <input type="checkbox" name="Important_strong" value={{d.Important_strong| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_strong == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_iron" type="text/html">
+    <input type="checkbox" name="Important_iron" value={{d.Important_iron| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_iron == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_rail" type="text/html">
+    <input type="checkbox" name="Important_rail" value={{d.Important_rail| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_rail == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_wind" type="text/html">
+    <input type="checkbox" name="Important_wind" value={{d.Important_wind| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_wind == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_light" type="text/html">
+    <input type="checkbox" name="Important_light" value={{d.Important_light| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_light == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_give" type="text/html">
+    <input type="checkbox" name="Important_give" value={{d.Important_give| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_give == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_farmer" type="text/html">
+    <input type="checkbox" name="Important_farmer" value={{d.Important_farmer| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_farmer == '是' ? 'checked' : '' }}>
+</script>
+<script id="switch_Important_summary" type="text/html">
+    <input type="checkbox" name="Important_summary" value={{d.Important_summary| "空"}} lay-skin="switch" lay-filter="SwitchChangeData" lay-text="是|空" {{ d.Important_summary == '是' ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="selectCatagory">
+    <select lay-filter="ChangeDropData" lay-search field="Catagory">
+        <option value="">请选择</option>
+        <option value="常规工程">常规工程</option>
+        <option value="整站改造">整站改造</option>
+        <option value="地下变电站">地下变电站</option>
+        <option value="隧道电缆">隧道电缆</option>
+        <option value="综合管廊">综合管廊</option>
+    </select>
+</script>
+
+<script type="text/html" id="selectCLevel">
+    <select lay-filter="ChangeDropData" lay-search field="CLevel">
+        <option value="">请选择</option>
+        <option value="35">35</option>
+        <option value="110">110</option>
+        <option value="220">220</option>
+        <option value="500">500</option>
+    </select>
+</script>
+
+<script type="text/html" id="selectPType">
+    <select lay-filter="ChangeDropData" lay-search field="PType">
+        <option value="">请选择</option>
+        <option value="变电站">变电站</option>
+        <option value="开关站">开关站</option>
+        <option value="间隔">间隔</option>
+        <option value="架空线">架空线</option>
+        <option value="架空线切改">架空线切改</option>
+        <option value="陆上电缆">陆上电缆</option>
+        <option value="陆上电缆切改">陆上电缆切改</option>
+        <option value="水下电缆">水下电缆</option>
+        <option value="水下电缆切改">水下电缆切改</option>
+        <option value="混合线路">混合线路</option>
+        <option value="串联补偿站">串联补偿站</option>
+        <option value="静止无功补偿工程">静止无功补偿工程</option>
+    </select>
+</script>
+
+<script type="text/html" id="selectNature">
+    <select lay-filter="ChangeDropData" lay-search field="Nature">
+        <option value="">请选择</option>
+        <option value="新增">新增</option>
+        <option value="扩建">扩建</option>
+    </select>
+</script>
+
+<table class="layui-hide" id="dt" lay-filter="dt"></table>
+
+<script>
+    var element = layui.element,
+        table = layui.table,
+        laypage = layui.laypage,
+        form = layui.form,
+        upload = layui.upload,
+        laydate = layui.laydate;
+
+    var tableData = [];
+
+    table.render({
+        elem: '#dt',
+        url: '/ProjectPlanInfo/GetPageData',
+        toolbar: '#toolbar',
+        title: '项目里程碑计划',
+        height: 'full-175',
+        limits: [100, 500, 1000, 10000],
+        cols: [[
+            { align: 'center', rowspan: 2, checkbox: true, fixed: 'left', title: '' },
+            { align: 'center', rowspan: 2, field: 'LineId', width: 120, title: '项目编码', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'Province', width: 120, title: '省公司', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'Company', width: 120, title: '建设单位', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'CLevel', width: 120, title: '电压等级', templet: '#selectCLevel' },
+            { align: 'center', rowspan: 2, field: 'ProjectName', width: 120, title: '项目名称', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'Catagory', width: 150, title: '项目建设类别', templet: '#selectCatagory' },
+            { align: 'center', rowspan: 2, field: 'PType', width: 150, title: '单项工程类型', templet: '#selectPType' },
+            { align: 'center', rowspan: 2, field: 'Nature', width: 120, title: '建设性质', templet: '#selectNature' },
+            { colspan: 2, align: 'center', title: '计划性质' },
+            { colspan: 2, align: 'center', title: '计划规模' },
+            { colspan: 2, align: 'center', title: '实物量' },
+            { align: 'center', rowspan: 2, field: 'Address', width: 150, title: '项目所在地（县/市/区）', edit: 'text' },
+            { colspan: 9, align: 'center', title: '项目前期工作' },
+            { colspan: 16, align: 'center', title: '工程前期阶段' },
+            { colspan: 7, align: 'center', title: '工程建设阶段' },
+            { colspan: 3, align: 'center', title: '总结评价阶段' },
+            { align: 'center', rowspan: 2, field: 'DynamicNum', width: 180, title: '可研批复动态投资（万元）', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'DemandNum', width: 180, title: ' 自开工至年底累计完成投资（万元） ', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'TotalNum', width: 180, title: '年度投资计划（万元）', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'PlanNum', width: 180, title: '年度预算需求计划（万元）', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'Progress', width: 200, title: ' 年底单项工程完成形象进度', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'Remark', width: 120, title: ' 备注', edit: 'text' },
+            { colspan: 10, align: 'center', title: '总结评价阶段' },
+            { align: 'center', rowspan: 2, field: 'Months', width: 120, title: ' 工期月数', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'WorkReady', width: 120, title: ' 开工准备', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'WorkSet', width: 120, title: ' 可研初设', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'WorkStart', width: 120, title: ' 开工初设', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'WorkBid', width: 120, title: ' 开工招标', edit: 'text' },
+            { align: 'center', rowspan: 2, field: 'WorkCheck', width: 120, title: ' 开工核准', edit: 'text' },
+            { align: 'center', rowspan: 2, fixed: 'right', width: 120, align: 'center', toolbar: '#bar', title: '操作' },
+        ],
+        [
+            { field: 'IsBegin', width: 120, title: '开工', templet: "#switch_IsBegin" },
+            { field: 'IsWork', width: 120, title: '投产', templet: "#switch_IsWork" },
+            { field: 'Vlength', width: 120, title: ' 线路长度', edit: 'text' },
+            { field: 'Volume', width: 120, title: '变电容量', edit: 'text' },
+            { field: 'CycleNum', width: 120, title: '线路回数', edit: 'text' },
+            { field: 'GroupNum', width: 120, title: '主变组数', edit: 'text' },
+
+            { field: 'Pre_fno', width: 140, title: '可研批复文号', edit: 'text' },
+            {
+                field: 'Pre_bdt', width: 120, title: '可研批复时间或计划', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Pre_bdt != undefined ? ('value="' + res.Pre_bdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            { field: 'Pre_yno', width: 120, title: '用地预审文号 ', edit: 'text' },
+            { field: 'Pre_sno', width: 200, title: '选址（选线）意见书批复文号', edit: 'text' },
+            { field: 'Pre_isable', width: 180, title: '用地指标是否落实', templet: "#switch_Pre_isable" },
+            { field: 'Pre_hno', width: 120, title: '核准文号', edit: 'text' },
+            {
+                field: 'Pre_hdt', width: 180, title: '核准批复时间或计划 ', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Pre_hdt != undefined ? ('value="' + res.Pre_hdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Pre_pdt', width: 150, title: '环评批复时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Pre_pdt != undefined ? ('value="' + res.Pre_pdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Pre_sdt', width: 150, title: '水保批复时间 ', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Pre_sdt != undefined ? ('value="' + res.Pre_sdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_zdt', width: 200, title: ' 设计招标计划申报截止时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_zdt != undefined ? ('value="' + res.Start_zdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_kdt', width: 150, title: '设计招标开标时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_kdt != undefined ? ('value="' + res.Start_kdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_sdt', width: 150, title: '初设评审时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_sdt != undefined ? ('value="' + res.Start_sdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_fdt', width: 150, title: '初设批复时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_fdt != undefined ? ('value="' + res.Start_fdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_ydt', width: 180, title: '施工图预算批复时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_ydt != undefined ? ('value="' + res.Start_ydt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_wdt', width: 200, title: '物资招标计划申报截止时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_wdt != undefined ? ('value="' + res.Start_wdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_bdt', width: 180, title: '物资招标开标时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_bdt != undefined ? ('value="' + res.Start_bdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_jdt', width: 180, title: '施工招标申报截止时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_jdt != undefined ? ('value="' + res.Start_jdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_gdt', width: 180, title: '施工招标开标时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_gdt != undefined ? ('value="' + res.Start_gdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_xdt', width: 200, title: '建设用地规划许可证取得时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_xdt != undefined ? ('value="' + res.Start_xdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_ldt', width: 150, title: '路径规划批复', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_ldt != undefined ? ('value="' + res.Start_ldt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_cdt', width: 300, title: '国有土地划拨决定书或建设用地批准书取得时间 ', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_cdt != undefined ? ('value="' + res.Start_cdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_hdt', width: 260, title: '国有土地使用不动产权证取得时间 ', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_hdt != undefined ? ('value="' + res.Start_hdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_hdt', width: 200, title: '建设工程规划许证取得时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_hdt != undefined ? ('value="' + res.Start_hdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_ddt', width: 250, title: '变电站消防设计审核（或备案）时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_ddt != undefined ? ('value="' + res.Start_ddt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Start_rdt', width: 250, title: '变电站四通一平/线路复测开始时间 ', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Start_rdt != undefined ? ('value="' + res.Start_rdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_bdt', width: 120, title: '开工时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_bdt != undefined ? ('value="' + res.Build_bdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_sdt', width: 180, title: '安装/组塔开始时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_sdt != undefined ? ('value="' + res.Build_sdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_xdt', width: 180, title: '调试/架线（敷设）开始时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_xdt != undefined ? ('value="' + res.Build_xdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_ydt', width: 180, title: '消防验收（备案）时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_ydt != undefined ? ('value="' + res.Build_ydt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_hdt', width: 180, title: ' 环保验收（如需）完成时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_hdt != undefined ? ('value="' + res.Build_hdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_cdt', width: 180, title: '水保验收（如需）完成时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_cdt != undefined ? ('value="' + res.Build_cdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Build_tdt', width: 120, title: '投产时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Build_tdt != undefined ? ('value="' + res.Build_tdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Finish_jdt', width: 180, title: '竣工结算完成时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Finish_jdt != undefined ? ('value="' + res.Finish_jdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Finish_fdt', width: 180, title: '竣工结算批复时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Finish_fdt != undefined ? ('value="' + res.Finish_fdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            {
+                field: 'Finish_zdt', width: 180, title: ' 创优自检完成时间', templet: function (res) {
+                    return '<input type="text" autocomplete="off" '
+                        + 'class="layui-input layui-input-date" '
+                        + (res.Finish_zdt != undefined ? ('value="' + res.Finish_zdt + '"') : "")
+                        + 'style="border:none;text-align:center;line-height:20px;height:30px">';
+                }
+            },
+            { field: 'Important_high', width: 120, title: ' 特高配套', templet: "#switch_Important_high" },
+            { field: 'Important_assort', width: 120, title: ' 500/220配套', templet: "#switch_Important_assort" },
+            { field: 'Important_strong', width: 120, title: '电网加强', templet: "#switch_Important_strong" },
+            { field: 'Important_iron', width: 120, title: '电铁配套', templet: "#switch_Important_iron" },
+            { field: 'Important_rail', width: 120, title: '跨越铁路', templet: "#switch_Important_rail" },
+            { field: 'Important_wind', width: 120, title: '风电送出', templet: "#switch_Important_wind" },
+            { field: 'Important_light', width: 120, title: ' 光伏送出', templet: "#switch_Important_light" },
+            { field: 'Important_give', width: 120, title: ' 电厂送出', templet: "#switch_Important_give" },
+            { field: 'Important_farmer', width: 120, title: ' 城农网专项', templet: "#switch_Important_farmer" },
+            { field: 'Important_summary', width: 120, title: ' 迎峰度夏', templet: "#switch_Important_summary" },
+        ]
+        ],
+        page: true,
+        done: function (res, curr, count) {
+            tableData = table.cache['dt'];
+            $('.layui-input-date').each(function () {
+                laydate.render({
+                    elem: this,
+                    format: 'yyyy-MM-dd',
+                    type: 'date',
+                    trigger: 'click',
+                    theme: '#393D49',
+                    done: function (value, date, endDate) {
+                        var dom = $(this)[0].elem;
+                        $(dom).attr({ "value": value });
+                        $($(dom).parent().parent()).attr({ "data-content": value });
+                        var field = $(dom).parent().parent().attr("data-field");
+                        var index = $(dom).parent().parent().parent().attr("data-index");
+                        index = parseInt(index);
+                        tableData[index][field] = value;
+                    },
+                    calendar: true,
+                });
+            });
+            $(".layui-table-main").find("tbody>tr").each(function (e) {
+                var $cr = $(this);
+                var selectArr = $cr.find('select');
+                var dataindex = $cr.attr("data-index");
+                dataindex = parseInt(dataindex);
+                var rowData = tableData[dataindex];
+
+                $.each(selectArr, function (index, value) {
+                    var field = $($cr.find('select')[index]).attr("field");
+                    var columnValue = rowData[field];
+                    if (columnValue) {
+                        var select = 'dd[lay-value=' + columnValue + ']';
+                        $(this).siblings("div.layui-form-select").find('dl').find(select).click();
+                    }
+                });
+            });
+
+            $($(".layui-table-tool-self").children().last()).css("display","none");
+        }
+    });
+
+    //头工具栏事件
+    table.on('toolbar(dt)', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        switch (obj.event) {
+            case 'Import':
+                var index = layui.layer.open({
+                    title: "导入",
+                    type: 2,
+                    area: ['100%', '100%'],
+                    content: "/ProjectPlanInfo/Import",
+                    btn: ['保存', '取消'],
+                    btnAlign: 'c',
+                    yes: function () {
+                        var iframeWin = $("div.layui-layer-content > iframe")[0].contentWindow; //获取子页面对象
+                        iframeWin.SaveExcelData();
+                        var result = iframeWin.result;
+
+                        if (result) {
+                            if (result.code == 1) {
+                                layer.close(index);
+                                Reload();
+                            }
+
+                            layer.msg(result.msg, { icon: result.code, time: 2000 });
+                        }
+                    },
+                    btn2: function () {
+                        layer.close(index);
+                    },
+                    success: function (layero, index) {
+
+                    }
+                })
+                layui.layer.full(index);
+                //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                $(window).on("resize", function () {
+                    layui.layer.full(index);
+                })
+                break;
+            case "AddRow":
+                var rowdata = {
+                    "Phid": '', "LineId": '', "ProjectNo": "", "Province": "", "Company": "", "CLevel": "", "ProjectName": "",
+                    "Catagory": "", "PType": "", "Nature": "", "IsBegin": "", "IsWork": "", "Vlength": "", "Volume": "",
+                    "CycleNum": "", "GroupNum": "", "Address": "", "Pre_fno": "", "Pre_bdt": "", "Pre_yno": "", "Pre_sno": "",
+                    "Pre_isable": "", "Pre_hno": "", "Pre_hdt": "", "Pre_pdt": "", "Pre_sdt": "", "Start_zdt": "", "Start_kdt": "",
+                    "Start_sdt": "", "Start_fdt": "", "Start_ydt": "", "Start_wdt": "", "Start_bdt": "", "Start_jdt": "", "Start_gdt": "",
+                    "Start_xdt": "", "Start_ldt": "", "Start_pdt": "", "Start_cdt": "", "Start_hdt": "", "Start_ddt": "", "Start_rdt": "",
+                    "Build_bdt": "", "Build_sdt": "", "Build_xdt": "", "Build_ydt": "", "Build_hdt": "", "Build_cdt": "",
+                    "Build_tdt": "", "Finish_jdt": "", "Finish_fdt": "", "Finish_zdt": "", "DynamicNum": '', "DemandNum": '',
+                    "TotalNum": '', "PlanNum": '', "Progress": "", "Remark": "", "Important_high": "", "Important_assort": "",
+                    "Important_strong": "", "Important_iron": "", "Important_rail": "", "Important_wind": "", "Important_light": "",
+                    "Important_give": "", "Important_farmer": "", "Important_summary": "", "Months": "", "WorkReady": "", "WorkSet": "",
+                    "WorkStart": "", "WorkBid": "", "WorkCheck": ""
+                }
+                table.cache['dt'].push(rowdata);
+                table.reload('dt', {
+                    data: table.cache['dt']
+                });
+                break;
+            case 'BatchSave':
+                if (tableData && tableData.length > 0) {
+                    var planBatchStr = JSON.stringify(tableData);
+                    var ajax = {
+                        url: '/ProjectPlanInfo/BatchSave',
+                        type: 'POST',
+                        async: false,
+                        data: { planBatchStr: planBatchStr },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data && data.code == "1") {
+                                layer.msg(data.msg, { icon: data.code, time: 2000 });
+                                Reload();
+                            }
+                            else {
+                                layer.msg("保存失败！", { icon: 0, time: 2000 });
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        }
+                    }
+                    $.ajax(ajax);
+                }
+                break;
+            case 'BatchRemove':
+                var data = checkStatus.data;
+                if (data && data.length > 0) {
+                    layer.confirm('真的删除行么', function (index) {
+                        var idArr = [];
+                        $.each(data, function () {
+                            idArr.push(this.Phid);
+                        });
+                        if (idArr.length > 0) {
+                            var ids = idArr.join(',');
+                            var ajax = {
+                                url: '/ProjectPlanInfo/BatchDelete?ids=' + ids,
+                                type: 'get',
+                                async: false,
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data && data.code == "1") {
+                                        layer.msg(data.msg, { icon: data.code, time: 2000 });
+                                        Reload();
+                                    }
+                                    else {
+                                        layer.msg("保存失败！", { icon: 0, time: 2000 });
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                }
+                            }
+                            $.ajax(ajax);
+                        }
+                    });
+
+                    layer.close(index);
+                }
+                break;
+             case 'LAYTABLE_EXPORT':
+                var data = checkStatus.data;
+                if (data && data.length == 0) {
+                    data = tableData;
+                }
+                debugger
+                table.exportFile(obj.config.id, data,'xls');
+                break;
+        };
+    });
+
+    //监听行工具事件
+    table.on('tool(dt)', function (obj) {
+        var data = obj.data;
+        if (obj.event === 'del') {
+            layer.confirm('真的删除行么', function (index) {
+                obj.del();
+                layer.close(index);
+                var ajax = {
+                    url: '/ProjectPlanInfo/BatchDelete?Ids=' + data.Phid,
+                    type: 'POST',
+                    async: false,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data && data.code == "1") {
+                            layer.msg(data.msg, data.code);
+                        }
+                        else {
+                            layer.msg("保存失败！", 0);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    }
+                }
+                $.ajax(ajax);
+            });
+        }
+        else if (obj.event === 'save') {
+            if (data) {
+                var arr = [];
+                arr.push(data);
+                var planBatchStr = JSON.stringify(arr);
+                var ajax = {
+                    url: '/ProjectPlanInfo/BatchSave',
+                    type: 'POST',
+                    async: false,
+                    data: { planBatchStr: planBatchStr },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data && data.code == "1") {
+                            layer.msg(data.msg, { icon: data.code, time: 2000 });
+                        }
+                        else {
+                            layer.msg("保存失败！", { icon: 0, time: 2000 });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    }
+                }
+                $.ajax(ajax);
+            }
+        }
+    });
+
+    form.on('switch(SwitchChangeData)', function (data) {
+        var dom = data.elem;
+        var val = this.checked ? "是" : "";
+
+        var field = $(dom).parent().parent().attr("data-field");
+        var index = $(dom).parent().parent().parent().attr("data-index");
+        index = parseInt(index);
+        tableData[index][field] = val;
+    });
+
+    form.on('select(ChangeDropData)', function (data) {
+        var dom = data.elem;
+        var val = data.value;
+        var field = $(dom).parent().parent().attr("data-field");
+        var index = $(dom).parent().parent().parent().attr("data-index");
+        index = parseInt(index);
+        tableData[index][field] = val;
+    });
+
+    layui.use('laydate', function () {
+        laydate.render({ elem: "#Build_bdt", format: 'yyyy-MM', type: 'month', trigger: 'click', theme: '#393D49', calendar: true });
+        laydate.render({ elem: "#Build_tdt", format: 'yyyy-MM', type: 'month', trigger: 'click', theme: '#393D49', calendar: true });
+    });
+
+    function Reload() {
+        table.reload("dt", {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            },
+            where: {
+                ProjectName: $("#ProjectName").val(),
+                CLevel: $("#CLevel").val(),
+                Build_bdt: $("#Build_bdt").val(),
+                Build_tdt: $("#Build_tdt").val(),
+                Catagory: $("#Catagory").val(),
+                PType: $("#PType").val(),
+                Nature: $("#Nature").val(),
+                IsBeginOrWork: $("#IsBeginOrWork").val(),
+            }
+        });
+    }
+
+    function Clear() {
+        $("#ProjectName").val("");
+        $("#CLevel").val("");
+        $("#Build_bdt").val("");
+        $("#Build_tdt").val("");
+        $("#Catagory").val("");
+        $("#PType").val("");
+        $("#Nature").val("");
+        $("#IsBeginOrWork").val("");
+    }
+
+    // 序列化对象
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+</script>

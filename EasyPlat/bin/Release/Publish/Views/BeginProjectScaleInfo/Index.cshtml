@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<blockquote class="layui-elem-quote quoteBox">
+    <form class="layui-form">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="txt1" placeholder="请输入搜索的内容" />
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" placeholder="请输入搜索的内容" />
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" placeholder="请输入搜索的内容" />
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" placeholder="请输入搜索的内容" />
+            </div>
+
+            <a class="layui-btn search_btn" data-type="reload">搜索</a>
+        </div>
+    </form>
+</blockquote>
+
+<table class="layui-hide" id="test" lay-filter="test" style="width:100%;min-height:500px"></table>
+
+<script id="toolbar" type="text/html">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="Import">导入</button>
+        <button class="layui-btn layui-btn-sm" lay-event="Add">新增</button>
+        <button class="layui-btn layui-btn-sm" lay-event="Modify">修改</button>
+        <button class="layui-btn layui-btn-sm" lay-event="Remove">删除</button>
+    </div>
+</script>
+
+<script type="text/html" id="sTime">
+    <div>
+        {{# var fu = function(){
+                var sTime = d.sTime;
+                if(null != sTime){return formatTime(sTime, "yyyy-MM-dd");}
+            }
+        }}
+        {{fu()}}
+    </div>
+</script>
+<script type="text/html" id="eTime">
+    <div>
+        {{# var fu = function(){
+                var eTime = d.eTime;
+                if(null != eTime){return formatTime(eTime, "yyyy-MM-dd");}
+            }
+        }}
+        {{fu()}}
+    </div>
+</script>
+
+<script id="bar" type="text/html">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test',
+            url: '/BeginProjectScaleInfo/GetPageData',
+            title: '开工项目规模统计',
+            toolbar: '#toolbar',
+            height: 'full-155',
+            cols: [[
+                { type: 'checkbox', fixed: 'left' },
+                { field: 'Year', title: '年度', sort: true, fixed: 'left', templet : '#sTime' },
+                { field: 'Month', title: '月份', sort: true, },
+                { field: 'VolLevel', title: '电压等级', edit: 'text' },
+                { field: 'PNumber', title: '项目数量', sort: true, edit: 'text' },
+                { field: 'CircuitNum', title: '线路回数', sort: true, edit: 'text' },
+                { field: 'TableNum', title: '主变台数', edit: 'text', sort: true },
+                { field: 'Length', title: '线路长度', sort: true },
+                { field: 'Volume', title: '变电容量', edit: 'text', sort: true },
+                { fixed: 'right', title: '操作', toolbar: '#bar', fixed: 'right' }
+            ]],
+
+            page: true
+        });
+    });
+
+    $(".search_btn").on("click", function () {
+        table.reload("#test", {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            },
+            where: {
+                key: $("#txt1").val()  //搜索的关键字
+            }
+        })
+    });
+
+</script>

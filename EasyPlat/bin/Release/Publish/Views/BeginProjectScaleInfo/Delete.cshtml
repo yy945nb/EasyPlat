@@ -1,0 +1,89 @@
+﻿@model EasyPlat.Models.BeginProjectScaleInfo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BeginProjectScaleInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CircuitNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CircuitNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TableNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TableNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Volume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Volume)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

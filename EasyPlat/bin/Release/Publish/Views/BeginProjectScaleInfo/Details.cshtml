@@ -1,0 +1,83 @@
+﻿@model EasyPlat.Models.BeginProjectScaleInfo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BeginProjectScaleInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VolLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VolLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CircuitNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CircuitNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TableNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TableNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Volume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Volume)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Phid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

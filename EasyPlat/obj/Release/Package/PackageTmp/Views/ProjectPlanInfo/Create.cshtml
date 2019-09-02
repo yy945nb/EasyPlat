@@ -1,0 +1,491 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .layui-inline {
+        width: 49%
+    }
+
+    .layui-form-label {
+        width: 240px;
+    }
+
+    .layui-form-item .layui-input-inline {
+        float: left;
+        width: calc(100% - 240px);
+        margin-right: 10px;
+    }
+</style>
+
+
+<div class="layui-tab layui-tab-brief" lay-filter="TabBrief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">基本信息</li>
+        <li>项目前期工作</li>
+        <li>工程前期阶段</li>
+        <li>工程建设阶段</li>
+        <li>总结评价阶段</li>
+        <li>重点工程备注</li>
+    </ul>
+
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+            <form class="layui-form" id="basic_form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">序号</label>
+                        <input name="LineId" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">项目编码</label>
+                        <input name="ProjectNo" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">省公司</label>
+                        <input name="Province" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">建设管理单位</label>
+                        <input name="Company" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电压等级</label>
+                        <input name="CLevel" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">项目名称</label>
+                        <input name="ProjectName" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">项目建设类别</label>
+                        <input name="Catagory" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">单项工程类型</label>
+                        <input name="PType" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">建设性质</label>
+                        <input name="Nature" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">项目所在地区</label>
+                        <input name="Address" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">计划性质-开工</label>
+                        <input name="IsBegin" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">计划性质-建设</label>
+                        <input name="IsWork" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">计划规模-线路长度</label>
+                        <input name="Vlength" class="layui-input layui-input-inline" type="text" autocomplete="off">
+
+
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">计划规模-变电容量</label>
+                        <input name="Volume" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">实物量-线路回数</label>
+                        <input name="CycleNum" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">实物量-主变组数</label>
+                        <input name="GroupNum" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">工期月数</label>
+                        <input name="Months" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开工准备</label>
+                        <input name="WorkReady" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">可研初设</label>
+                        <input name="WorkSet" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开工初设</label>
+                        <input name="WorkStart" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开工招标</label>
+                        <input name="WorkBid" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开工核准</label>
+                        <input name="WorkCheck" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="layui-tab-item">
+            <form class="layui-form">
+                <div class="layui-form-item" id="pre_form">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">可研批复文号</label>
+                        <input name="Pre_fno" class="layui-input layui-input-inline " type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">可研批复时间</label>
+                        <input name="Pre_bdt" class="layui-input layui-input-date layui-input-inline " type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用地预审文号</label>
+                        <input name="Pre_yno" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">选址意见书文号</label>
+                        <input name="Pre_sno" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用地指标是否落实</label>
+                        <input name="Pre_isable" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">核准文号</label>
+                        <input name="Pre_hno" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">核准批复时间</label>
+                        <input name="Pre_hdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">环评批复时间</label>
+                        <input name="Pre_hdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">水保批复时间</label>
+                    <input name="Pre_sdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                </div>
+            </form>
+        </div>
+        <div class="layui-tab-item">
+            <form class="layui-form" id="start_form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">设计招标计划申报截止时间</label>
+                        <input name="Start_zdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">设计招标开标时间</label>
+                        <input name="Start_kdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">初设评审时间</label>
+                        <input name="Start_sdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">初设批复时间</label>
+                        <input name="Start_fdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">施工图预算批复时间</label>
+                        <input name="Start_ydt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">物资招标计划申报截止时间</label>
+                        <input name="Start_wdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">物质招标开标时间</label>
+                        <input name="Start_bdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">施工招标申报截止时间</label>
+                        <input name="Start_jdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">施工招标开标时间</label>
+                        <input name="Start_gdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">建设用地规划许可证取得时间</label>
+                        <input name="Start_cdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">建设工程规划许可证取得时间</label>
+                        <input name="Start_hdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">变电站消防设计审核时间</label>
+                        <input name="Start_ddt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">线路复测开始时间</label>
+                        <input name="Start_rdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-tab-item">
+            <form class="layui-form">
+                <div class="layui-form-item" id="build_form">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开工时间</label>
+                        <input name="Build_bdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">安装组他开始时间</label>
+                        <input name="Build_sdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">调试架线时间</label>
+                        <input name="Build_xdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">消防验收时间</label>
+                        <input name="Build_ydt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">环保验收完成时间</label>
+                        <input name="Build_hdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">水保验收完成时间</label>
+                        <input name="Build_cdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">投产时间</label>
+                        <input name="Build_tdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-tab-item">
+            <form class="layui-form" id="finish_form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">竣工时间</label>
+                        <input name="Finish_jdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">竣工阶段批复时间</label>
+                        <input name="Finish_fdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">创优自检完成时间</label>
+                        <input name="Finish_zdt" class="layui-input layui-input-date layui-input-inline" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">可研批复动态投资（万）</label>
+                        <input name="DynamicNum" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">年度预算需求计划（万）</label>
+                        <input name="DemandNum" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开工至年底累计完成投资（万）</label>
+                        <input name="TotalNum" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">下年度投资计划（万）</label>
+                        <input name="PlanNum" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">年底单项工程完成进度</label>
+                        <input name="Progress" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">备注</label>
+                        <input name="Remark" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-tab-item">
+            <form class="layui-form" id="important_form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">特高配套</label>
+                        <input name="Important_high" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">500/220配套</label>
+                        <input name="Important_assort" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电网加强</label>
+                        <input name="Important_strong" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电铁配套（万）</label>
+                        <input name="Important_iron" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">跨越铁路</label>
+                        <input name="Important_rail" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">风电送出</label>
+                        <input name="Important_wind" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">光伏送出</label>
+                        <input type="checkbox" name="" title="写作" checked>
+                        @*<input name="Important_light" class="layui-input layui-input-inline" type="text" autocomplete="off">*@
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电厂送出</label>
+                        <input name="Important_give" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">城农网专项</label>
+                        <input name="Important_farmer" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">迎峰度夏</label>
+                        <input name="Important_summary" class="layui-input layui-input-inline" type="text" autocomplete="off">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var element = layui.element,
+        table = layui.table,
+        laypage = layui.laypage,
+        form = layui.form,
+        upload = layui.upload,
+        laydate = layui.laydate;
+
+    layui.use('element', function () {
+        var $ = layui.jquery, element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    });
+
+    function SaveFormData() {
+        debugger
+        var basicData = $("#basic_form").serialize();
+        var preData = $("#pre_form").serialize();
+        var buildData = $("#build_form").serialize();
+        var finishData = $("#finish_form").serialize();
+        var importData = $("#import_form").serialize();
+
+        Object.assign(basicData, preData);
+        Object.assign(basicData, buildData);
+        Object.assign(basicData, finishData);
+        Object.assign(basicData, importData);
+
+        var ajax = {
+            url: '/ProjectPlanInfo/Create',
+            type: 'post',
+            async: false,
+            data: basicData,
+            dataType: "json",
+            success: function (data) {
+                if (data && data.Status == "1") {
+                    window.parent.Reload();
+                }
+                else {
+                    dialog.alert("保存失败！");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        }
+
+        $.ajax(ajax);
+    }
+
+    $(function () {
+        $(".layui-input-date").each(function () {
+            laydate.render({ elem: this, format: 'yyyy-MM-dd', type: 'date', trigger: 'click', theme: '#393D49', calendar: true });
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

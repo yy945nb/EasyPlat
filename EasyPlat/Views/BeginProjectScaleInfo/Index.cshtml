@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "开工项目统计";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<blockquote class="layui-elem-quote quoteBox">
+    <form class="layui-form">
+        <div class="layui-inline">
+            <label class="layui-form-label">统计时间</label>
+            <input type="text" id="tjdate" class="layui-input layui-input-inline" autocomplete="off" />
+            <a class="layui-btn search_btn" onclick="Search()">搜索</a>
+        </div>
+    </form>
+</blockquote>
+
+<table class="layui-hide" id="dt" lay-filter="dt"></table>
+
+<script>
+    var element = layui.element,
+        table = layui.table,
+        laypage = layui.laypage,
+        form = layui.form,
+        upload = layui.upload,
+        laydate = layui.laydate;
+
+    table.render({
+        elem: '#dt',
+        url: '/BeginProjectScaleInfo/GetPageData',
+        title: '开工项目规模统计',
+        toolbar: '#toolbar',
+        height: 'full-155',
+        limit: 100,
+        limits:[100,500,1000,10000],
+        cols: [[
+            { type: 'checkbox', fixed: 'left' },
+            { field: 'TJDate', title: '统计时间', sort: true},
+            { field: 'VolLevel', title: '电压等级', sort: true },
+            { field: 'PNumber', title: '项目数量', sort: true },
+            { field: 'CircuitNum', title: '线路回数', sort: true },
+            { field: 'TableNum', title: '主变台数', sort: true },
+            { field: 'Length', title: '线路长度', sort: true },
+            { field: 'Volume', title: '变电容量', sort: true },
+            { field: 'AvgRate', title: '平均值', sort: true },
+        ]],
+        page: true,
+        done: function () {
+            $($(".layui-table-tool-self").children().last()).css("display","none");
+        }
+    });
+
+     //头工具栏事件
+    table.on('toolbar(dt)', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        switch (obj.event) {
+            case 'LAYTABLE_EXPORT':
+                var data = checkStatus.data;
+                if (data && data.length == 0) {
+                    data = table.cache["dt"];
+                }
+                table.exportFile(obj.config.id, data,'xls');
+                break;
+        };
+    });
+
+    layui.use('laydate', function () {
+        laydate.render({ elem: "#tjdate", format: 'yyyy-MM', type: 'month', trigger: 'click', theme: '#393D49', calendar: true });
+    });
+
+    function Search() {
+        table.reload("dt", {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            },
+            where: {
+                Month: $("#tjdate").val()  //搜索的关键字
+            }
+        })
+    }
+</script>

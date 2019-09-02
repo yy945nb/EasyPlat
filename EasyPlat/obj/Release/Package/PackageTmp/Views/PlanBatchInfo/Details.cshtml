@@ -1,0 +1,123 @@
+﻿@model EasyPlat.Models.PlanBatchInfo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PlanBatchInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanBatch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanBatch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BidMode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BidMode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyWay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyWay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BidYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BidYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BidFlag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BidFlag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanCheckDt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanCheckDt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanEndDt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanEndDt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanStartDt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanStartDt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityStartDt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityStartDt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Period)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Period)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Phid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

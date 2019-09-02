@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .layui-inline {
+        width: 49%
+    }
+
+    .layui-form-label {
+        width: 200px;
+    }
+
+    .layui-form-item .layui-input-inline {
+        float: left;
+        width: calc(100% - 200px);
+        margin-right: 10px;
+    }
+</style>
+
+<form class="layui-form" id="form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">计划批次</label>
+            <input name="PlanBatch" id="PlanBatch" class="layui-input layui-input-inline" type="text" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">计划名称</label>
+            <input name="PlanName" id="PlanName" class="layui-input layui-input-inline" type="text" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">所在城市</label>
+            <input name="CityPlace" class="layui-input layui-input-inline" type="text" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">状态</label>
+            <input name="Status" class="layui-input" id="Period" type="text" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">招标模式</label>
+            <input name="BidMode" id="BidMode" class="layui-input layui-input-inline" type="text" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">采购方式</label>
+            <input name="BuyWay" id="BuyWay" class="layui-input layui-input-inline" type="text" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">招标年度</label>
+            <input name="BidYear" class="layui-input layui-input-inline" type="text" id="BidYear" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">招标紧急标识</label>
+            <input name="BidFlag" class="layui-input layui-input-inline" type="text" id="BidFlag" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">计划审查日期</label>
+            <input name="PlanCheckDt" class="layui-input layui-input-inline" id="PlanCheckDt" type="text" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">计划开始时间</label>
+            <input name="PlanStartDt" class="layui-input layui-input-inline" id="PlanStartDt" type="text" autocomplete="off">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">市计划开始时间</label>
+            <input name="CityStartDt" class="layui-input layui-input-inline" id="CityStartDt" type="text" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">计划截至日期</label>
+            <input name="PlanEndDt" class="layui-input layui-input-inline" id="PlanEndDt" type="text" autocomplete="off">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">招标模式细化期</label>
+        <input name="Period" class="layui-input" id="Period" type="text" autocomplete="off">
+    </div>
+</form>
+
+<script>
+    var form = layui.form
+        , layer = layui.layer
+        , layedit = layui.layedit
+        , laydate = layui.laydate;
+
+    var result = { code: 0, msg: "请至少选择一行数据！" };
+
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        //日期
+        laydate.render({
+            elem: '#PlanStartDt'
+        });
+        laydate.render({
+            elem: '#PlanEndDt'
+        });
+        laydate.render({
+            elem: '#CityStartDt'
+        });
+        laydate.render({
+            elem: '#PlanCheckDt'
+        });
+        laydate.render({
+            elem: '#BidYear',
+            type: 'year'
+        });
+    });
+
+    function Save() {
+        debugger
+        var formData = $("#form").serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/PlanBatchInfo/Save',
+            data: formData,
+            dataType: "json",
+            success: function () {
+                if (data && data.code == "1") {
+                    result = data;
+                }
+                else {
+                    layer.msg("保存失败！", 0);
+                }
+            },
+        });
+    }
+
+</script>
+
